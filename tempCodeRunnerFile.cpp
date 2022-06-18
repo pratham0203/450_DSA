@@ -1,11 +1,3 @@
-int partition(int arr[], int l, int r){
-    int x = arr[r], i = l;
-    for(int j=l;j<=r-1;j++){
-        if(arr[j] <= x){
-            swap(arr[i],arr[j]);
-            i++;
-        }    
+    for(int i=0;i<n-1;i++){
+        ans.push_back(arr[i]);
     }
-    swap(arr[i],arr[r]);
-    return i;
-}
