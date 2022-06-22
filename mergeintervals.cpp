@@ -1,52 +1,33 @@
 #include<bits/stdc++.h>
 using namespace std;
 int main(){
-    vector<vector<int>>intervals = {{1,3},{2,6},{8,10},{15,18}};
-    vector<vector<int>>ans;
+    vector<vector<int>>intervals = {{1,5},{4,6},{8,10},{9,18}};
+     vector<vector<int>>ans;
     int n = intervals.size();
+    int m = intervals[0].size();
     int start;
     int end;
-    if(intervals.size()<=1){
+    int a,b;
+    if(n<=1){
         ans.push_back(intervals[0]);
     }
-    else if(intervals.size()==2){
-        for(int i=0;i<n;i++){
-        start = intervals[i+1][0];
-        end = intervals[i][1];
-        if(start<=end){
-            intervals[i+1][0] = intervals[i][0];
-            intervals[i][0] = INT_MAX;
-            intervals[i][1] = INT_MAX;
-        }
-        else{
-            ans.push_back(intervals[i]);
-        }
-    }
-    sort(intervals.begin(),intervals.end());
-    }
     else{
-        for(int i=0;i<n-1;i++){
-        start = intervals[i+1][0];
-        end = intervals[i][1];
+        for(int i=1;i<n;i++){
+        start = intervals[i][0];
+        end = intervals[i-1][m-1];
+        a = intervals[i-1][0];
+        b = intervals[i][m-1];
         if(start<=end){
-            intervals[i+1][0] = intervals[i][0];
-            intervals[i][0] = INT_MAX;
-            intervals[i][1] = INT_MAX;
+            ans.push_back({a,b});
+            
         }
     }
-    sort(intervals.begin(),intervals.end());
-    intervals.pop_back();
-    for(int i=0;i<n-1;i++){
-        ans.push_back(intervals[i]);
     }
-
-    }
-
-    for(int i=0;i<n;i++){
-        for(int j=0;j<2;j++){
+    for(int i=0;i<ans.size();i++){
+        for(int j=0;j<ans[i].size();j++){
             cout<<ans[i][j]<<" ";
         }
-        cout<<endl;
+        cout<<endl;        
     }
     return 0;
 }

@@ -1,1 +1,3 @@
-cout<<jump;
+if(PrefixSum==k){
+            count++;
+        }
