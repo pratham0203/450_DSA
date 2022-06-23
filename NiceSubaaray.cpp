@@ -25,6 +25,8 @@ int main(){
         }
         m[PrefixSum]++;
     }
-    cout<<count;
+    for(auto x : m){
+        cout<<x.first<<" "<<x.second<<endl;
+    }
     return 0;
 }
