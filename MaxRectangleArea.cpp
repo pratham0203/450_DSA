@@ -1,63 +1,65 @@
 #include<bits/stdc++.h>
 using namespace std;
 int MaxArea(int arr[],int n){
-    int ps[n];
-    int ns[n];
-    int maxAns = 0;
+    vector<int>left(n),right(n);
     stack<int> s;
-    stack<int> s2;
     for(int i=0;i<n;i++){
-        while(!s.empty() && arr[s.top()]>=arr[i]){
-            s.pop();
-        }
         if(s.empty()){
-            ps[i]=-1;
+            left[i]=0;
+            s.push(i);
         }
         else{
-            ps[i] = s.top();
+            while(!s.empty() and arr[s.top()]>=arr[i]){
+                s.pop();
+            }
+            left[i] = s.empty()?0:s.top()+1;
+            s.push(i);
         }
-        s.push(i);
+    }
+    while(!s.empty()){
+        s.pop();
     }
     for(int i=n-1;i>=0;i--){
-        while(!s2.empty() && arr[s2.top()]>=arr[i]){
-            s2.pop();
-        }
-        if(s2.empty()){
-            ns[i]=-1;
+        if(s.empty()){
+            right[i] = n-1;
+            s.push(i);
         }
         else{
-            ns[i] = s2.top();
+            while(!s.empty() && arr[s.top()]>=arr[i]){
+                s.pop();
+            }
+            right[i] = s.empty()?n-1:s.top()-1;
+            s.push(i);
         }
-        s2.push(i);
     }
+    int max_area = INT_MIN;
     for(int i=0;i<n;i++){
-        int cur = (ns[i]-ps[i]-1)*arr[i];
-        maxAns = max(maxAns,cur);
+        max_area = max(max_area,arr[i]*(right[i]-left[i]+1));
     }
-    return maxAns;
+    return max_area;
 }
 int main(){
-    int M[4][4] = {{1,1,1,0},{1,1,1,1},{1,1,1,1},{1,1,0,0}};
-    int currRow[4]={1,1,1,0};
-    int ans=0;
-    int n = sizeof(M) / sizeof(M[0]);
-    int m = sizeof(M[0])/sizeof(int);
+    int M[1][10] = {{0,0,0,0,1,1,1,0,1,0}};
+    int n = 1;
+    int m = 10;
+    int curRow[m];
     for(int i=0;i<m;i++){
+        curRow[i]=M[0][i];
+    }
+    int maxAns = MaxArea(curRow,m);
+    cout<<maxAns;
+    for(int i=1;i<n;i++){
         for(int j=0;j<m;j++){
             if(M[i][j]==1){
-                currRow[j]+=1;
-                cout<<currRow[j]<<" ";
+                curRow[j]+=1;
             }
             else{
-                currRow[j]=0;
-                cout<<currRow[j]<<" ";
-
+                curRow[j]=0;
             }
         }
-        cout<<endl;
-    int curAns = MaxArea(currRow,m);
-    ans = max(curAns,ans);
- }
- cout<<ans;
+        int curAns = MaxArea(curRow,m);
+        maxAns = max(maxAns,curAns);
+    }
+    cout<<maxAns;
     return 0;
 }
