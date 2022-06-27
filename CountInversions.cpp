@@ -47,7 +47,7 @@ long long mergesort(int arr[],int l,int r){
         cout<<inv<<endl;
 
     }
-    return inv;  
+    return inv;         
 }
 int main(){
     int arr[]={2, 4, 1, 3, 5};
