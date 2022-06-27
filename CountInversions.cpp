@@ -26,11 +26,11 @@ long long merge(int arr[],int l,int mid,int r){
         }
     }
     while(i<n1){
-        arr[k]=arr[i];
+        arr[k]=a[i];
         k++;i++;
     }
     while(j<n2){
-        arr[k] = arr[j];
+        arr[k] = b[j];
         k++;j++;
     }
     return inv;
@@ -40,18 +40,15 @@ long long mergesort(int arr[],int l,int r){
     if (l<r)
     {   int mid = (l+r)/2;
         inv += mergesort(arr,l,mid);
-        cout<<inv<<endl;
         inv += mergesort(arr,mid+1,r);
-        cout<<inv<<endl;
         inv += merge(arr,l,mid,r);
-        cout<<inv<<endl;
-
     }
     return inv;         
 }
+
 int main(){
-    int arr[]={2, 4, 1, 3, 5};
-    int n = 5;
+    int arr[]={3, 5, 6, 9, 1, 2, 7, 8};
+    int n = 8;
     cout<<mergesort(arr,0,n-1);
     return 0;
 }
