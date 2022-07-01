@@ -1,57 +1,11 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-long long merge(int arr[],int l,int mid,int r){
-    long long inv = 0;
-    int n1= mid-l+1;
-    int n2 = r-mid;
-    int a[n1];
-    int b[n2];
-    for(int i=0;i<n1;i++){
-        a[i] = arr[l+i];
-    }
-    for(int i=0;i<n2;i++){
-        b[i] = arr[mid+1+i];
-    }
-    int i=0,j=0,k=l;
-    while(i<n1 and j<n2){
-        if(a[i]<=b[j]){
-            arr[k] = a[i];
-            k++;i++;
+long long dp[r+1];
+    fill(dp,dp+r+1,0);
+    dp[0] = 1;
+    long long mod = pow(10,9)+7;
+    for(int i=1;i<=n;i++){
+        for(int j = min(r,i);j>0;j--){
+            dp[j] = (dp[j]+dp[j-1]);
         }
-        else{
-            arr[k] = b[j];
-            inv += n1-i;
-            k++;j++;
-        }
+        cout<<endl;
     }
-    while(i<n1){
-        arr[k]=arr[i];
-        k++;i++;
-    }
-    while(j<n2){
-        arr[k] = arr[j];
-        k++;j++;
-    }
-    return inv;
-}
-long long mergesort(int arr[],int l,int r){
-    long long inv=0;
-    if (l<r)
-    {   int mid = (l+r)/2;
-        inv += mergesort(arr,l,mid);
-        cout<<inv<<endl;
-        inv += mergesort(arr,mid+1,r);
-        cout<<inv<<endl;
-        inv += merge(arr,l,mid,r);
-        cout<<inv<<endl;
-
-    }
-    return inv;  
-}
-int main(){
-    int arr[]={2, 4, 1, 3, 5};
-    int n = 5;
-    cout<<mergesort(arr,0,n-1);
-    return 0;
-}
+    cout<<dp[r]<<" ";
